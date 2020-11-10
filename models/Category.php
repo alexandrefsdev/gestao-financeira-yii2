@@ -3,8 +3,10 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Model;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%categories}}".
@@ -74,5 +76,11 @@ class Category extends \yii\db\ActiveRecord
     public function getBills()
     {
         return $this->hasMany(Bill::className(), ['category_id' => 'id']);
+    }
+
+    public static function getCategoryOptions()
+    {
+        $rows = self::find()->orderBy('name ASC')->all();
+        return ArrayHelper::map($rows, 'id', 'name');
     }
 }

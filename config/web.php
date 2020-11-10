@@ -51,6 +51,12 @@ $config = [
             'rules' => [
             ],
         ],
+        'formatter' => [
+            'dateFormat' => 'dd/MM/yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => '.',
+            'currencyCode' => 'BRL',
+        ],
 
     ],
     'params' => $params,

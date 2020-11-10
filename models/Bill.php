@@ -21,6 +21,12 @@ use Yii;
  */
 class Bill extends \yii\db\ActiveRecord
 {
+    const TYPE_RECEIVE = 1;
+    const TYPE_PAY = 2;
+
+    const STATUS_OPENED = 1;
+    const STATUS_PAYED_RECEIVED = 2;
+
     /**
      * {@inheritdoc}
      */
@@ -51,14 +57,14 @@ class Bill extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
-            'type' => 'Type',
-            'date' => 'Date',
-            'description' => 'Description',
-            'amount' => 'Amount',
+            'category_id' => 'Categoria',
+            'type' => 'Tipo',
+            'date' => 'Data',
+            'description' => 'Descrição',
+            'amount' => 'Valor',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Data de Criação',
+            'updated_at' => 'Última Atualização',
         ];
     }
 
@@ -69,6 +75,38 @@ class Bill extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
+    // VERIFICA SE A CONTA ESTÁ EM ABERTO
+    public function isOpened()
+    {
+        return (int)$this->status === static::STATUS_OPENED;
+    }
+
+    public function getTypeText(): string
+    {
+        return static::getTypeOptions()[$this->type];
+    }
+
+    public static function getTypeOptions(): array
+    {
+        return [
+            static::TYPE_RECEIVE => 'Contas á Receber',
+            static::TYPE_PAY => 'Contas á Pagar',
+        ];
+    }
+
+    public function getStatusText(): string
+    {
+        return static::getStatusOptions()[$this->status];
+    }
+
+    public static function getStatusOptions(): array
+    {
+        return [
+            static::STATUS_OPENED => 'Em Aberto',
+            static::STATUS_PAYED_RECEIVED => 'Pago/Recebido',
+        ];
+    }
+
 }
