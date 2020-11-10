@@ -39,7 +39,7 @@ class Category extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 60],
         ];
     }
-    // Para preencher com o timestamp as
+    // Para preencher com o timestamp
     public function behaviors()
     {
         return [

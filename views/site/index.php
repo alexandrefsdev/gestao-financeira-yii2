@@ -18,10 +18,11 @@ $this->title = 'Gestão Financeira Pessoal';
             ]) ?>
         </p>
         <p>
-            <?= Html::a('Ver Relatórios', "#", [
+            <?= Html::a('Ver Relatórios', "../reports/index", [
                 'title' => 'Ver meus relatórios',
                 'class' => 'btn btn-sm btn-link'
             ]) ?>
         </p>
     </div>
 </div>
+

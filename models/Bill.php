@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "{{%bills}}".
@@ -41,13 +43,29 @@ class Bill extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'type', 'date', 'description', 'amount', 'created_at'], 'required'],
+            [['category_id', 'type', 'date', 'description', 'amount'], 'required'],
             [['category_id', 'type', 'status'], 'integer'],
             [['date', 'created_at', 'updated_at'], 'safe'],
             [['amount'], 'number'],
             [['description'], 'string', 'max' => 60],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
+    }
+
+    // Para preencher com o timestamp
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                // COMO JÁ VEM COMO PADRÃO, NÃO É NECESSARIO
+//                'createdAtAttribute' => 'create_at',
+//                'updatedAtAttribute' => 'update_at',
+                'value' => new Expression('CURRENT_TIMESTAMP')
+            ],
+        ];
+        // BLAMEABLEBEHAVIOR, DIZ QUEM ALTEROU A COLUNA
+        // SLUGABLE,
     }
 
     /**
