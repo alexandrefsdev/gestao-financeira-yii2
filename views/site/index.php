@@ -12,13 +12,13 @@ $this->title = 'Gestão Financeira Pessoal';
         <h1>Gestão Financeira Pessoal</h1>
         <p class="lead">Organização de suas finanças pessoais</p>
         <p>
-            <?= Html::a('<i class="glyphicon glyphicon-plus-sign"></i> Criar um lançamento',"#", [
+            <?= Html::a('<i class="glyphicon glyphicon-plus-sign"></i> Criar um lançamento',"../web/bills/create", [
                 'title' => 'Criar um lançamento agora',
                 'class' => 'btn btn-lg btn-success'
             ]) ?>
         </p>
         <p>
-            <?= Html::a('Ver Relatórios', "../reports/index", [
+            <?= Html::a('Ver Relatórios', "../web/reports/index", [
                 'title' => 'Ver meus relatórios',
                 'class' => 'btn btn-sm btn-link'
             ]) ?>

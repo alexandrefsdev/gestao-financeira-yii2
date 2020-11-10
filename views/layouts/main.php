@@ -5,8 +5,8 @@
 
 use app\widgets\Alert;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -28,22 +28,47 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+
+    Nav::widget([
         'items' => [
-            ['label' => 'Lançamentos', 'url' => ['/bills/index']],
-            ['label' => 'Categorias', 'url' => ['/categories/index']],
-            ['label' => 'Relatórios', 'url' => ['/reports/index']],
+            [
+                'label' => 'Home',
+                'url' => ['site/index'],
+                'linkOptions' => [],
+            ],
+            [
+                'label' => 'Dropdown',
+                'items' => [
+                    ['label' => 'Level 1 - Dropdown A', 'url' => '#'],
+                    '<div class="dropdown-divider"></div>',
+                    '<div class="dropdown-header">Dropdown Header</div>',
+                    ['label' => 'Level 1 - Dropdown B', 'url' => '#'],
+                ],
+            ],
+            [
+                'label' => 'Login',
+                'url' => ['site/login'],
+                'visible' => Yii::$app->user->isGuest
+            ],
         ],
+        'options' => ['class' =>'nav-pills'], // set this to nav-tab to get tab-styled navigation
     ]);
-    NavBar::end();
+//    NavBar::begin([
+//        'brandLabel' => Yii::$app->name,
+//        'brandUrl' => Yii::$app->homeUrl,
+//        'options' => [
+//            'class' => 'navbar-inverse navbar-fixed-top',
+//        ],
+//    ]);
+//    echo Nav::widget([
+//        'options' => ['class' => 'navbar-nav navbar-right'],
+//        'items' => [
+//            ['label' => 'Lançamentos', 'url' => ['/bills/index']],
+//            ['label' => 'Categorias', 'url' => ['/categories/index']],
+//            ['label' => 'Relatórios', 'url' => ['/reports/index']],
+//        ],
+//    ]);
+//    NavBar::end();
     ?>
 
     <div class="container">
@@ -54,6 +79,7 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
+<?= yii\bootstrap4\Progress::widget(['percent' => 60, 'label' => 'test']) ?>
 
 <footer class="footer">
     <div class="container">
