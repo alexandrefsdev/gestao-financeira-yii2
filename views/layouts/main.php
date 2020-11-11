@@ -1,14 +1,15 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this View */
+
 /* @var $content string */
 
-use app\widgets\Alert;
-use yii\helpers\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\widgets\Alert;
+use yii\bootstrap4\Nav;
+use yii\helpers\Html;
+use yii\web\View;
+use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
 ?>
@@ -19,6 +20,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -26,33 +28,45 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
 
-    Nav::widget([
-        'items' => [
-            [
-                'label' => 'Home',
-                'url' => ['site/index'],
-                'linkOptions' => [],
+<?php echo Nav::widget([
+    'options' => ['class' => 'nav nav-tabs'], // set this to nav-tab to get tab-styled navigation
+    'activateParents' => true,
+    'items' => [
+        [
+            'label' => 'Home',
+            'url' => ['site/index'],
+            'linkOptions' => [
+                'class' => 'nav-link active'
             ],
-            [
-                'label' => 'Dropdown',
-                'items' => [
-                    ['label' => 'Level 1 - Dropdown A', 'url' => '#'],
-                    '<div class="dropdown-divider"></div>',
-                    '<div class="dropdown-header">Dropdown Header</div>',
-                    ['label' => 'Level 1 - Dropdown B', 'url' => '#'],
+
+        ],
+        [
+            'label' => 'Ações',
+            'items' => [
+                [
+                    'label' => 'Lançamentos',
+                    'url' => '/bills/index'
+                ],
+                [
+                    'label' => 'Categorias',
+                    'url' => '/categories/index'
+                ],
+                '<div class="dropdown-divider"></div>',
+//                '<div class="dropdown-header">Dropdown Header</div>',
+                [
+                    'label' => 'Relatórios',
+                    'url' => '/reports/index'
                 ],
             ],
-            [
-                'label' => 'Login',
-                'url' => ['site/login'],
-                'visible' => Yii::$app->user->isGuest
-            ],
         ],
-        'options' => ['class' =>'nav-pills'], // set this to nav-tab to get tab-styled navigation
-    ]);
+//        [
+//            'label' => 'Login',
+//            'url' => ['site/login'],
+//            'visible' => Yii::$app->user->isGuest
+//        ],
+    ],
+]);
 //    NavBar::begin([
 //        'brandLabel' => Yii::$app->name,
 //        'brandUrl' => Yii::$app->homeUrl,
@@ -69,17 +83,20 @@ AppAsset::register($this);
 //        ],
 //    ]);
 //    NavBar::end();
-    ?>
-
+?>
+<div class="wrap">
     <div class="container">
+
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+
         ]) ?>
         <?= Alert::widget() ?>
+
         <?= $content ?>
     </div>
 </div>
-<?= yii\bootstrap4\Progress::widget(['percent' => 60, 'label' => 'test']) ?>
+
 
 <footer class="footer">
     <div class="container">
@@ -90,6 +107,7 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" crossorigin="anonymous"></script>
 </body>
 </html>
 <?php $this->endPage() ?>

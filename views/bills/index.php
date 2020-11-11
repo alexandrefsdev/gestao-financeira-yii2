@@ -2,8 +2,11 @@
 
 use app\models\Bill;
 use app\models\Category;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Html;
+
+//use yii\grid\GridView;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BillSearch */
@@ -21,11 +24,16 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+//            [
+//                'class' => '\kartik\grid\SerialColumn'
+//            ],
+            [
+                'class' => '\kartik\grid\CheckboxColumn'
+            ],
             [
                 'attribute' => 'date',
                 'format' => 'date',
@@ -52,6 +60,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
+                'class' => '\kartik\grid\DataColumn',
+                'pageSummary' => true,
                 'attribute' => 'amount',
                 'format' => 'currency',
                 'headerOptions' => ['class' => 'text-center', 'style' => 'width: 100px'],
@@ -63,19 +73,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'text-center', 'style' => 'width: 160px'],
                 'contentOptions' => ['class' => 'text-center'],
                 'content' => function (Bill $model, $key, $index, $column) {
-                    $labelClass = ($model->isOpened() ? 'label-warning' : 'label-success');
-                    return '<span class="label '. $labelClass . '"> '. $model->getStatusText() . '</span>';
+                    $labelClass = ($model->isOpened() ? 'badge-warning' : 'badge-success');
+                    return '<span class="badge ' . $labelClass . '"> ' . $model->getStatusText() . '</span>';
 
                 }
             ],
             [
-                'class' => 'yii\grid\ActionColumn',
+                'class' => '\kartik\grid\ActionColumn',
                 'headerOptions' => ['class' => 'text-center', 'style' => 'width: 160px'],
                 'contentOptions' => ['class' => 'text-center'],
                 'header' => 'Ações'
             ],
         ],
-    ]); ?>
-
+        'responsive' => true,
+        'hover' => true
+    ]) ?>
 
 </div>
